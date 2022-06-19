@@ -1,15 +1,8 @@
-##################
-# Imported libraries
-##################
-
 import streamlit as stl
 import pandas as pd
 import altair as alt
 from PIL import Image
 
-######################
-# Page Title
-######################
 
 image = Image.open('DNA_dynamic.jpg')
 
@@ -25,11 +18,6 @@ stl.markdown("<h6 style='text-align: center; font:bold'>This app was built by Ja
 stl.write("""
 ***
 """)
-
-
-######################
-# Input Text Box
-#####################
 
 # st.sidebar.header('Enter DNA sequence')
 stl.header('Enter DNA sequence')
@@ -105,7 +93,7 @@ stl.write("""
 
 ## A little info
 # stl.header('WHAT IS NUCLEOTIDE?')
-stl.markdown("<h5 style='text-align: center; color: navy;'>Simple and Breaf Explanation of Nucleotide and it's Bases</h5>", unsafe_allow_html=True)
+stl.markdown("<h5 style='text-align: center; color: navy;'>Simple and Brief Explanation of Nucleotide and it's Bases</h5>", unsafe_allow_html=True)
 
 stl.write("""
 **What is a Nucleotide?**\n
