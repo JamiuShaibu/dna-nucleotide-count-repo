@@ -67,7 +67,7 @@ stl.write('There are ' + str(dna_elment['C']) + ' cytosine (C)')
 
 # Show Data frame
 stl.subheader('3. Display DataFrame')
-df = pd.DataFrame.from_dict(X, orient='index')
+df = pd.DataFrame.from_dict(dna_elment, orient='index')
 df = df.rename({0: 'count'}, axis='columns')
 df.reset_index(inplace=True)
 df = df.rename(columns={'index': 'nucleotide'})
