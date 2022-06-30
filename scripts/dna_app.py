@@ -4,13 +4,12 @@ import altair as alt
 
 
 def generate_sequence():
-    sequence_input = ">DNA Query:\nGAACACGTGGAGGCAAACAGGAAGGTGAAGAAGAACTTATCAGGACGGAAGGTCCTGTGCTCGGG"
+    """Generates sequence from input"""
+    sequence_input = "GAACACGTGGAGGCAAACAGGAAGGTGAAGAAGAACTTATCAGGACGGAAGGTCCTGTGCTCGGG"
 
-    # sequence = st.sidebar.text_area("Sequence input", sequence_input, height= 250)
-    sequence = stl.text_area("Sequence input:", sequence_input, height=150)
-    sequence = sequence.splitlines()
-    sequence = sequence[1:]  # Skip the sequence name (first line)
-    sequence = ''.join(sequence)  # Concatenates list to string
+    stl.header('Enter DNA Sequence In The Text-Box Below...')
+    sequence = stl.text_area("Clear Text-Box And Enter Sequence👇👇: E.g", sequence_input, height=150)
+
     stl.write("""
     ***
     """)
@@ -24,7 +23,7 @@ def generate_sequence():
 
 
 def dna_nucleotide_count(seq):
-    """Returns the count of the nucleotide sequence_input"""
+    """Writes and returns the counted elements of the nucleotide sequence_input"""
     seq_dict = dict([
         ('T', seq.count('T')),
         ('A', seq.count('A')),
@@ -36,37 +35,44 @@ def dna_nucleotide_count(seq):
 
     stl.subheader('Count in a Text Form')
     dna_element = seq_dict
-    stl.write('There are ' + str(dna_element['T']) + ' thymine (T)')
-    stl.write('There are ' + str(dna_element['A']) + ' adenine (A)')
-    stl.write('There are ' + str(dna_element['G']) + ' guanine (G)')
-    stl.write('There are ' + str(dna_element['C']) + ' cytosine (C)')
+    stl.write(f"There are {dna_element['T']} thymine (T)")
+    stl.write(f"There are {dna_element['A']} adenine (A)")
+    stl.write(f"There are {dna_element['G']} guanine (G)")
+    stl.write(f"There are {dna_element['C']} cytosine (C)")
     return dna_element
 
 
 def generate_dataframe():
-    """Generates, writes and returns a dataframe"""
+    """Generates, writes and returns a dataframe of the nucleotide sequence"""
     dna_element = dna_nucleotide_count(generate_sequence())
     stl.subheader('Display DataFrame')
     df = pd.DataFrame.from_dict(dna_element, orient='index')
-    df = df.rename({0: 'count'}, axis='columns')
+    df = df.rename({0: 'Count'}, axis='columns')
     df.reset_index(inplace=True)
-    df = df.rename(columns={'index': 'nucleotide'})
+    df = df.rename(columns={'index': 'Nucleotide'})
     stl.write(df, use_column_width=True)
     return df
 
 
 def generate_chart():
+    """Generates a chart of the nucleotide positions"""
     df = generate_dataframe()
     # Display Bar Char using Altair
     stl.subheader('Display Bar Chart')
     plot_chart = alt.Chart(df).mark_bar().encode(
-        x='nucleotide',
-        y='count'
+        x='Nucleotide',
+        y='Count'
     )
 
     plot_chart = plot_chart.properties(
-        width=alt.Step(80)  # Controls width of the bar.
+        width=alt.Step(120)
     )
     stl.write(plot_chart)
+
+
+def generate_all_data():
+    """Generates all computed data instructions"""
+    generate_chart()
+
 
 

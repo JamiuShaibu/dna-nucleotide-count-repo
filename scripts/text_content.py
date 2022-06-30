@@ -2,6 +2,7 @@ import streamlit as stl
 
 
 def get_text_content():
+    """Holds explanatory information"""
     stl.markdown(
         "<h5 style='text-align: center; color: navy;'>Simple and Brief Explanation of Nucleotide and it's Bases</h5>",
         unsafe_allow_html=True)

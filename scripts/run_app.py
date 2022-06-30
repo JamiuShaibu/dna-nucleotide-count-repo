@@ -1,6 +1,6 @@
 import streamlit as stl
 from PIL import Image
-from dna_app import generate_chart
+from dna_app import generate_all_data
 from text_content import get_text_content
 
 
@@ -17,9 +17,8 @@ def main():
     stl.write("""
     ***
     """)
-    stl.header('Enter DNA sequence')
 
-    generate_chart()
+    generate_all_data()
 
     stl.write("""
     ***
