@@ -4,6 +4,6 @@
 
 Streamlit was used for this project.
 Instruction:
-The script is executed by running ## streamlit run run_app.py
+The script is executed by running **streamlit run run_app.py**
 
 Streamlit is an open-source python framework for building web apps for Machine Learning and Data Science
