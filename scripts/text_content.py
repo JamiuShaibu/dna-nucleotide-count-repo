@@ -1,100 +1,12 @@
 import streamlit as stl
-import pandas as pd
-import altair as alt
-from PIL import Image
-
-image = Image.open('DNA_dynamic.jpg')
-
-stl.image(image, use_column_width=True)
-
-# Header after the Image
-stl.markdown("<h2 style='text-align: center; font:bold'>DNA Nucleotide Count Web App</h2>", unsafe_allow_html=True)
-
-# Intro for the web app
-stl.markdown("<h6 style='text-align: center; font:bold'>This app was built by Jamiu Shaibu, an app that counts the "
-             "nucleotide composition of query DNA.</h6>", unsafe_allow_html=True)
-
-stl.write("""
-***
-""")
-
-# st.sidebar.header('Enter DNA sequence')
-stl.header('Enter DNA sequence')
-
-sequence_input = ">DNA Query\nGAACACGTGGAGGCAAACAGGAAGGTGAAGAAGAACTTATCAGGACGGAAGGTCCTGTGCTCGGG"
-
-# sequence = st.sidebar.text_area("Sequence input", sequence_input, height= 250)
-sequence = stl.text_area("Sequence input", sequence_input, height=150)
-sequence = sequence.splitlines()
-sequence = sequence[1:]  # Skip the sequence name (first line)
-sequence = ''.join(sequence)  # Concatenates list to string
-
-stl.write("""
-***
-""")
-
-# Print the input DNA sequence
-stl.header('INPUT (DNA Query)')
-sequence
-# DNA nucleotide Count
-stl.header('OUTPUT (DNA Nucleotide Count)')
-
-# 1. Print dictionary
-stl.subheader('1. Display Count in a Dictionary Form')
 
 
-def DNA_nucleotide_count(seq):
-    seq_dict = dict([
-        ('T', seq.count('T')),
-        ('A', seq.count('A')),
-        ('G', seq.count('G')),
-        ('C', seq.count('C')),
-    ])
-    return seq_dict
-
-
-dna_elment = DNA_nucleotide_count(sequence)
-
-X_label = list(dna_elment)
-X_values = list(dna_elment.values())
-
-#
-stl.subheader('2. Display Count in a Text Form')
-stl.write('There are ' + str(dna_elment['T']) + ' thymine (T)')
-stl.write('There are ' + str(dna_elment['A']) + ' adenine (A)')
-stl.write('There are ' + str(dna_elment['G']) + ' guanine (G)')
-stl.write('There are ' + str(dna_elment['C']) + ' cytosine (C)')
-
-# Show Data frame
-stl.subheader('3. Display DataFrame')
-df = pd.DataFrame.from_dict(dna_elment, orient='index')
-df = df.rename({0: 'count'}, axis='columns')
-df.reset_index(inplace=True)
-df = df.rename(columns={'index': 'nucleotide'})
-stl.write(df)
-
-# Display Bar Char using Altair
-stl.subheader('4. Display Bar Chart')
-p = alt.Chart(df).mark_bar().encode(
-    x='nucleotide',
-    y='count'
-)
-
-p = p.properties(
-    width=alt.Step(80)  # Controls width of the bar.
-)
-stl.write(p)
-
-stl.write("""
-***
-""")
-
-# stl.header('WHAT IS NUCLEOTIDE?')
-stl.markdown(
-    "<h5 style='text-align: center; color: navy;'>Simple and Brief Explanation of Nucleotide and it's Bases</h5>",
-    unsafe_allow_html=True)
-
-stl.write("""**What is a Nucleotide?**\n ***Nucleotides*** are organic molecules that serve as the basic structural (
+def get_text_content():
+    stl.markdown(
+        "<h5 style='text-align: center; color: navy;'>Simple and Brief Explanation of Nucleotide and it's Bases</h5>",
+        unsafe_allow_html=True)
+    with stl.expander("Read more content here"):
+        stl.write("""**What is a Nucleotide?**\n ***Nucleotides*** are organic molecules that serve as the basic structural (
 monomer) units for DNA and RNA, which, as we know, are the building blocks responsible for all life on Earth. 
 
 Each nucleotide contains a nitrogenous base, a five-carbon sugar, and at least one phosphate group. When bonded 
@@ -106,7 +18,6 @@ Nucleotides can also stand independently and interact with cells in other ways.
 **what is a Nucleotide Structure?** We know that nucleotides are the building blocks of DNA and RNA, but they also do 
 a lot of other things. In order to understand why and how nucleotides perform their extremely important jobs, 
 let's first go over what they're made out of and how they become nucleic acid. 
-
 
 
 **Nucleotide Bases**
@@ -160,17 +71,11 @@ structures to form nucleic acid.
 
 """)
 
-stl.markdown("<h5 style='text-align: center; color: navy'>CONCLUSION</h5>", unsafe_allow_html=True)
-
-stl.write("""**What is a Nucleotide? How Do They Work?**\n Nucleotides are just one part of the intricate world of 
-cellular biology. They play a central role in the life and structure of DNA and RNA, and their function is incredibly 
-important in the buildup and breakdown of cells. 
-
+    stl.markdown('''<h5 style='text-align: center; color: navy'>CONCLUSION</h5>
+<p style='text-align: center'><strong>What is a Nucleotide? How Do They Work?</strong> Nucleotides are just one part of 
+the intricate world of cellular biology. They play a central role in the life and structure of DNA and RNA, and their 
+function is incredibly important in the buildup and breakdown of cells.</p>
+<p style='text-align:center'>
 Our cells are carefully working together every day, and understanding what a nucleotide does can help us make sense 
-of the basics of our cells and how they work.\n 
-
-
-""")
-stl.markdown("<h6 style='text-align: right; color: navy; '>Author: Jamiu Shaibu</h6>", unsafe_allow_html=True)
-
-# Next task is to let the program accept another sequence for comparison.
+of the basics of our cells and how they work.</p>
+<h6 style='text-align: right; color: navy; '>Developed By: Jamiu Shaibu</h6>''', unsafe_allow_html=True)
